@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 行业日报 · 编辑看板</title>
+<style>
+  :root {
+    --bg: #f6f2ea;
+    --bg-soft: #efe9da;
+    --paper: #fbf8f1;
+    --paper-2: #f4efe2;
+    --card: #ffffff;
+    --ink: #1f1d18;
+    --ink-soft: #5c5648;
+    --ink-faint: #918a78;
+    --line: #e3ddca;
+    --line-soft: #ece6d4;
+    --accent: #b85c2b;
+    --accent-soft: #f3e0d0;
+    --accent-deep: #8c4220;
+    --green: #4a6b3e;
+    --green-soft: #dde6d2;
+    --blue: #345b7a;
+    --blue-soft: #d5dde6;
+    --amber: #b8862e;
+    --amber-soft: #f0e1c0;
+    --pink: #a8456b;
+    --pink-soft: #eed5de;
+    --radius: 8px;
+    --radius-sm: 4px;
+    --shadow-sm: 0 1px 2px rgba(80,60,20,0.04);
+    --shadow: 0 1px 0 rgba(0,0,0,0.04), 0 4px 14px rgba(80,60,20,0.06);
+    --shadow-lg: 0 8px 28px rgba(80,60,20,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { min-height: 100%; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 8% 0%, rgba(184, 92, 43, 0.05), transparent 40%),
+      radial-gradient(circle at 95% 10%, rgba(52, 91, 122, 0.04), transparent 35%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB",
+      -apple-system, "Segoe UI", Georgia, Arial, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 80px;
+  }
+
+  ::selection { background: var(--accent); color: #fff; }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 28px; }
+
+  /* ---------- 顶部 ---------- */
+  header.top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 48px 36px 44px 36px;
+    margin-bottom: 36px;
+    background: linear-gradient(135deg, var(--paper) 0%, var(--paper-2) 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    border-bottom: 3px solid var(--ink);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  header.top::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--amber) 50%, var(--accent) 100%);
+  }
+  header.top::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -3px;
+    width: 120px; height: 3px;
+    background: var(--accent);
+  }
+
+  .brand { display: flex; align-items: center; gap: 20px; }
+
+  .logo {
+    width: 72px; height: 72px;
+    border-radius: 14px;
+    background: var(--ink);
+    color: var(--bg);
+    display: grid; place-items: center;
+    font-family: Georgia, serif;
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: -1px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    position: relative;
+    overflow: hidden;
+  }
+  .logo::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 4s infinite;
+  }
+  @keyframes shimmer { 100% { left: 100%; } }
+
+  .brand-text h1 {
+    font-family: Georgia, "Songti SC", serif;
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--ink) 0%, var(--accent-deep) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .brand-text .sub {
+    font-size: 16px;
+    color: var(--ink-faint);
+    margin-top: 6px;
+    letter-spacing: 1.5px;
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    color: var(--ink-soft);
+    font-size: 16px;
+  }
+
+  .meta .date {
+    font-family: Georgia, serif;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 22px;
+    padding: 6px 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .vol {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 16px;
+    padding-right: 22px;
+    border-right: 1px solid var(--line);
+  }
+
+  .live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: var(--green-soft);
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .live::before {
+    content: "";
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* 收藏按钮 */
+  .fav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 15px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-sm);
+  }
+  .fav-btn:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
+  .fav-btn .cnt {
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- 回到顶部按钮 ---------- */
+  .back-to-top {
+    position: fixed;
+    right: 28px;
+    bottom: 80px;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s ease;
+    z-index: 999;
+    font-size: 22px;
+    font-family: Georgia, serif;
+  }
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+  .back-to-top:hover {
+    background: var(--accent);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 28px rgba(184,92,43,0.35);
+  }
+  .back-to-top:active { transform: translateY(-1px) scale(1.02); }
+  .back-to-top svg {
+    width: 22px; height: 22px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- 编辑寄语 ---------- */
+  .editor-note {
+    background: var(--paper);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    margin-bottom: 26px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-style: italic;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    line-height: 1.75;
+    position: relative;
+  }
+  .editor-note b { color: var(--ink); font-style: normal; font-weight: 700; }
+
+  /* ---------- 概览 ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .stat:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .stat::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s;
+  }
+  .stat:hover::before { transform: scaleY(1); }
+
+  .stat .label {
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .stat .num {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 6px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .stat .delta {
+    font-size: 12px;
+    margin-top: 6px;
+    color: var(--green);
+  }
+  .stat .delta.down { color: var(--accent); }
+
+  /* ---------- 工具栏 ---------- */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .search {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+  }
+  .search input {
+    width: 100%;
+    padding: 9px 14px 9px 36px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--ink);
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184,92,43,0.12); }
+  .search input::placeholder { color: var(--ink-faint); }
+  .search::before {
+    content: "";
+    position: absolute;
+    left: 14px; top: 50%;
+    width: 14px; height: 14px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 1.5px solid var(--ink-faint);
+    border-radius: 50%;
+  }
+  .search::after {
+    content: "";
+    position: absolute;
+    left: 25px; top: 56%;
+    width: 7px; height: 1.5px;
+    background: var(--ink-faint);
+    transform: rotate(45deg);
+  }
+
+  .seg-group {
+    display: inline-flex;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .seg-group button {
+    border: none;
+    background: transparent;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 999px;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .seg-group button.active {
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 600;
+  }
+  .seg-group button:hover:not(.active) { color: var(--ink); }
+
+  .compare-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .compare-toggle.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .compare-toggle .badge {
+    background: rgba(255,255,255,0.25);
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .compare-toggle:not(.active) .badge {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ---------- 分类筛选 ---------- */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .chip {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chip:hover { color: var(--ink); border-color: var(--ink-soft); transform: translateY(-1px); }
+  .chip.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+    font-weight: 600;
+  }
+  .chip .cnt {
+    font-size: 11px;
+    opacity: 0.7;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- 主体布局 ---------- */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 28px;
+  }
+
+  /* ---------- 对比抽屉 ---------- */
+  .compare-drawer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 14px 24px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+    transform: translateY(100%);
+    transition: transform 0.3s;
+    z-index: 50;
+  }
+  .compare-drawer.show { transform: translateY(0); }
+  .compare-drawer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .compare-drawer .title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bg);
+    padding-right: 14px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .compare-list { display: flex; gap: 8px; flex: 1; flex-wrap: wrap; }
+  .compare-item {
+    background: rgba(255,255,255,0.1);
+    padding: 6px 10px 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .compare-item .x {
+    cursor: pointer;
+    opacity: 0.7;
+    width: 16px; height: 16px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    transition: all 0.15s;
+  }
+  .compare-item .x:hover { opacity: 1; background: rgba(255,255,255,0.15); }
+  .compare-actions { display: flex; gap: 8px; margin-left: auto; }
+  .compare-actions button {
+    border: none;
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.2s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--bg);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+  /* ---------- 对比模态框 ---------- */
+  .modal-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 18, 12, 0.55);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+    animation: fadeIn 0.2s;
+  }
+  .modal-mask.show { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal {
+    background: var(--bg);
+    border-radius: var(--radius);
+    max-width: 900px;
+    width: 100%;
+    max-height: 88vh;
+    overflow: auto;
+    box-shadow: var(--shadow-lg);
+    animation: slideUp 0.25s;
+  }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 2px solid var(--ink);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 2;
+  }
+  .modal-head h3 {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .modal-head .close {
+    width: 30px; height: 30px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  .modal-head .close:hover { background: var(--line-soft); color: var(--ink); }
+  .modal-body { padding: 20px 24px; }
+
+  /* 对比表 */
+  .cmp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .cmp-table th, .cmp-table td {
+    padding: 14px 12px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .cmp-table th {
+    background: var(--paper);
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    text-align: left;
+    padding-left: 16px;
+  }
+  .cmp-table .name {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 15px;
+    text-align: left;
+  }
+  .cmp-table .name .tag { margin-left: 6px; }
+  .cmp-table .best { color: var(--accent); font-weight: 700; }
+  .cmp-table td.val { font-family: Georgia, serif; font-weight: 600; }
+  .cmp-bar {
+    display: inline-block;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 3px;
+    margin-top: 4px;
+    vertical-align: middle;
+  }
+
+  /* ---------- 新闻列表 ---------- */
+  .news { display: flex; flex-direction: column; gap: 14px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 22px 16px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.25s;
+    position: relative;
+    cursor: pointer;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--accent);
+    border-radius: var(--radius) 0 0 var(--radius);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s;
+  }
+  .card:hover {
+    box-shadow: var(--shadow);
+    border-color: var(--line-soft);
+  }
+  .card:hover::before { transform: scaleY(1); }
+  .card.expanded {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+  }
+  .card.expanded::before { transform: scaleY(1); }
+
+  /* 卡片底部动作按钮 */
+  .card-actions {
+    display: inline-flex;
+    gap: 4px;
+    opacity: 0.35;
+    transition: opacity 0.2s;
+  }
+  .card:hover .card-actions, .card.expanded .card-actions {
+    opacity: 1;
+  }
+  .card-actions button {
+    width: 26px; height: 26px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--ink-faint);
+    display: grid;
+    place-items: center;
+    transition: all 0.15s;
+  }
+  .card-actions button:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.1);
+  }
+  .card-actions button.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .card-actions .icon-fav.active { background: var(--pink); border-color: var(--pink); color: #fff; }
+
+  /* 对比选择按钮 */
+  .card.compare-mode { padding-right: 60px; }
+  .compare-check {
+    position: absolute;
+    top: 14px; right: 16px;
+    width: 26px; height: 26px;
+    border: 2px solid var(--line);
+    background: var(--card);
+    border-radius: 6px;
+    cursor: pointer;
+    display: none;
+    place-items: center;
+    transition: all 0.2s;
+  }
+  .compare-check::after {
+    content: "✓";
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .compare-check.checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .compare-check.checked::after { opacity: 1; }
+  body.compare-on .compare-check { display: grid; }
+  body.compare-on .card-actions { display: none; }
+  body.compare-on .card { cursor: default; padding-right: 60px; }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .tag.模型 { background: var(--accent-soft); color: var(--accent-deep); }
+  .tag.产品 { background: var(--blue-soft); color: var(--blue); }
+  .tag.融资 { background: var(--green-soft); color: var(--green); }
+  .tag.政策 { background: var(--amber-soft); color: var(--amber); }
+  .tag.研究 { background: var(--pink-soft); color: var(--pink); }
+  .tag.开源 { background: var(--line-soft); color: var(--ink-soft); }
+  .tag.人物 { background: #e6dde6; color: #6b4a7a; }
+
+  .source { font-size: 12px; color: var(--ink-faint); }
+  .time {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    font-family: Georgia, serif;
+  }
+
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin-bottom: 6px;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .card:hover h3 { color: var(--accent-deep); }
+
+  .card p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+
+  /* 详情区 */
+  .detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin 0.3s;
+    margin-top: 0;
+  }
+  .card.expanded .detail {
+    max-height: 1000px;
+    margin-top: 14px;
+  }
+  .detail-inner {
+    padding: 16px 18px;
+    background: var(--paper);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--accent);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .detail h5 {
+    font-size: 11px;
+    color: var(--ink);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .detail h5::before {
+    content: "";
+    width: 12px; height: 1px;
+    background: var(--accent);
+  }
+
+  /* 模型规格表 */
+  .spec-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .spec-cell {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    transition: all 0.2s;
+  }
+  .spec-cell:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .spec-cell .k {
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .spec-cell .v {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 3px;
+    font-family: Georgia, serif;
+  }
+
+  /* 能力雷达 */
+  .ability-section { display: grid; grid-template-columns: 1fr 180px; gap: 20px; align-items: center; }
+  .ability { }
+  .ability-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 32px;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .ability-row .name { color: var(--ink); font-weight: 600; }
+  .ability-track {
+    height: 6px;
+    background: var(--line-soft);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .ability-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent-soft), var(--accent));
+    width: 0;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .card.expanded .ability-fill { width: var(--w); }
+  .ability-fill::after {
+    content: "";
+    position: absolute;
+    right: 0; top: 0;
+    width: 6px; height: 100%;
+    background: rgba(255,255,255,0.4);
+    border-radius: 3px;
+  }
+  .ability-val {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-family: Georgia, serif;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 13px;
+  }
+
+  /* 雷达图 SVG 容器 */
+  .radar {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* 产品 Tab */
+  .tabs {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tabs button {
+    border: none;
+    background: transparent;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--ink-faint);
+    cursor: pointer;
+    font-family: inherit;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .tabs button:hover { color: var(--ink-soft); }
+  .tabs button.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab-pane { display: none; animation: fadePane 0.25s; }
+  .tab-pane.active { display: block; }
+  @keyframes fadePane { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .features li {
+    list-style: none;
+    font-size: 13px;
+    color: var(--ink-soft);
+    padding: 6px 8px 6px 22px;
+    position: relative;
+    border-radius: var(--radius-sm);
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .features li:hover { background: var(--card); color: var(--ink); }
+  .features li::before {
+    content: "▸";
+    position: absolute;
+    left: 6px; top: 6px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* 产品评分 */
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+  }
+  .rating .stars { display: inline-flex; gap: 2px; }
+  .rating .star {
+    cursor: pointer;
+    color: var(--line);
+    font-size: 16px;
+    transition: all 0.15s;
+  }
+  .rating .star:hover, .rating .star.on { color: var(--amber); transform: scale(1.15); }
+  .rating .score {
+    margin-left: 8px;
+    font-family: Georgia, serif;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 14px;
+  }
+  .rating .voters { font-size: 11px; color: var(--ink-faint); margin-left: 4px; }
+
+  /* 价格 */
+  .price-box {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-top: 4px;
+  }
+  .price-box .p {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .price-box .p small { font-size: 12px; color: var(--ink-faint); font-weight: 400; }
+  .price-box .note { font-size: 12px; color: var(--ink-soft); margin-top: 6px; }
+
+  /* API 计算器 */
+  .calc {
+    margin-top: 14px;
+    padding: 14px;
+    background: var(--card);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-sm);
+  }
+  .calc h6 { font-size: 12px; color: var(--ink); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .calc-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .calc-row input[type="range"] { flex: 1; accent-color: var(--accent); }
+  .calc-row .v { font-family: Georgia, serif; font-weight: 700; color: var(--ink); min-width: 60px; text-align: right; }
+  .calc-result { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-soft); }
+  .calc-result b { color: var(--accent); font-family: Georgia, serif; font-size: 16px; }
+
+  /* 底部信息 */
+  .card-foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .kw {
+    font-size: 12px;
+    color: var(--ink-faint);
+    padding: 3px 8px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--paper);
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .kw:hover { color: var(--accent); border-color: var(--accent); }
+  .heat {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    font-family: Georgia, serif;
+  }
+  .expand-hint {
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+    cursor: pointer;
+  }
+  .card .expand-hint::before { content: "▾ 展开详情"; }
+  .card.expanded .expand-hint::before { content: "▴ 收起"; }
+
+  /* ---------- 网格视图 ---------- */
+  .news.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .news.grid .card p { font-size: 13px; }
+
+  /* ---------- 侧边栏（悬浮） ---------- */
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: sticky;
+    top: 20px;
+    align-self: start;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  /* 面板自适应：填满侧栏可用高度 */
+  .side .panel {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .side .panel > *:last-child {
+    flex: 1 1 auto;
+  }
+  /* 悬浮时侧栏滚动条美化 */
+  .side::-webkit-scrollbar { width: 6px; }
+  .side::-webkit-scrollbar-track { background: transparent; }
+  .side::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 3px;
+  }
+  .side::-webkit-scrollbar-thumb:hover { background: var(--ink-faint); }
+
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .panel h4 {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel h4 .more {
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .trend-list { list-style: none; }
+  .trend-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .trend-list li:hover { color: var(--accent); padding-left: 4px; }
+  .trend-list li:last-child { border-bottom: none; }
+
+  .rank {
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-faint);
+    font-family: Georgia, serif;
+    flex-shrink: 0;
+  }
+  .trend-list li:nth-child(1) .rank { background: var(--accent); color: #fff; border-color: transparent; }
+  .trend-list li:nth-child(2) .rank { background: var(--amber); color: #fff; border-color: transparent; }
+  .trend-list li:nth-child(3) .rank { background: var(--ink-soft); color: #fff; border-color: transparent; }
+
+  .trend-list .word { color: var(--ink); font-weight: 600; flex: 1; }
+  .trend-list .cnt {
+    font-variant-numeric: tabular-nums;
+    font-family: Georgia, serif;
+    color: var(--ink-faint);
+  }
+
+  /* 柱状条 */
+  .bars { display: flex; flex-direction: column; gap: 12px; }
+  .bar-row { font-size: 13px; cursor: pointer; }
+  .bar-row .lab {
+    display: flex;
+    justify-content: space-between;
+    color: var(--ink-soft);
+    margin-bottom: 5px;
+  }
+  .bar-row .lab b { color: var(--ink); font-weight: 600; }
+  .bar-track {
+    height: 7px;
+    background: var(--line-soft);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--accent);
+    transition: width 0.5s;
+  }
+  .bar-row:hover .bar-fill { filter: brightness(1.1); }
+  .bar-fill.green { background: var(--green); }
+  .bar-fill.blue { background: var(--blue); }
+  .bar-fill.amber { background: var(--amber); }
+  .bar-fill.pink { background: var(--pink); }
+
+  /* 人物语录 */
+  .quote {
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 4px 0;
+    position: relative;
+    padding-left: 18px;
+    font-family: Georgia, "Songti SC", serif;
+  }
+  .quote::before {
+    content: "「";
+    position: absolute;
+    left: 0; top: -4px;
+    color: var(--accent);
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .quote-author {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: normal;
+    text-align: right;
+    font-family: Georgia, serif;
+  }
+  .quote-author b { color: var(--ink-soft); font-weight: 700; }
+
+  /* ---------- 底部 ---------- */
+  footer {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  footer .credit { font-family: Georgia, serif; font-style: italic; }
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width: 880px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .layout { grid-template-columns: 1fr; }
+    .news.grid { grid-template-columns: 1fr; }
+    .spec-table { grid-template-columns: repeat(2, 1fr); }
+    .features { grid-template-columns: 1fr; }
+    .ability-section { grid-template-columns: 1fr; }
+    .radar { display: none; }
+    .brand-text h1 { font-size: 22px; }
+  }
+
+  /* 提示气泡 */
+  .toast {
+    position: fixed;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: var(--bg);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-size: 13px;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 200;
+    box-shadow: var(--shadow-lg);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* 已读状态 */
+  .card.read h3::after {
+    content: "已读";
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    background: var(--green-soft);
+    color: var(--green);
+    border-radius: 3px;
+    margin-left: 8px;
+    font-weight: 600;
+    vertical-align: middle;
+    font-family: "PingFang SC", sans-serif;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div class="brand-text">
+          <h1>AI 行业日报</h1>
+          <div class="sub">Daily Intelligence · 每日自动整理</div>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="vol">VOL. 248</span>
+        <button class="fav-btn" id="favBtn">
+          <span>★ 收藏夹</span>
+          <span class="cnt" id="favCnt">0</span>
+        </button>
+        <span class="live">编辑更新中</span>
+        <span class="date" id="today">2026-09-09</span>
+      </div>
+    </header>
+
+    <div class="editor-note">
+      <b>编者按：</b>今日 AI 行业动态聚焦三条主线 —— 大模型进入「长上下文 + 多模态推理」新阶段；具身智能与人形机器人量产落地；欧盟 AI Act 全面生效，全球合规框架成型。共整理 38 条资讯，精选 12 条如下。点击卡片查看详情，模型支持并排对比，产品支持功能 Tab 与价格计算。
+    </div>
+
+    <!-- 概览 -->
+    <section class="stats">
+      <div class="stat">
+        <div class="label">今日资讯</div>
+        <div class="num">38</div>
+        <div class="delta">↑ 12 较昨日</div>
+      </div>
+      <div class="stat">
+        <div class="label">热门话题</div>
+        <div class="num">9</div>
+        <div class="delta">↑ 3 新增</div>
+      </div>
+      <div class="stat">
+        <div class="label">活跃公司</div>
+        <div class="num">24</div>
+        <div class="delta">↑ 5</div>
+      </div>
+      <div class="stat">
+        <div class="label">关键事件</div>
+        <div class="num">6</div>
+        <div class="delta down">↓ 1</div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <!-- 主内容 -->
+      <main>
+        <!-- 工具栏 -->
+        <div class="toolbar">
+          <div class="search">
+            <input type="text" id="searchInput" placeholder="搜索标题、关键词、来源...">
+          </div>
+          <button class="compare-toggle" id="compareToggle">
+            <span>⇄ 对比</span>
+            <span class="badge" id="compareBadge">0</span>
+          </button>
+          <div class="seg-group" id="sortGroup">
+            <button class="active" data-sort="time">最新</button>
+            <button data-sort="heat">最热</button>
+          </div>
+          <div class="seg-group" id="viewGroup">
+            <button class="active" data-view="list">☰ 列表</button>
+            <button data-view="grid">▦ 网格</button>
+          </div>
+        </div>
+
+        <!-- 分类 -->
+        <div class="filters" id="filters">
+          <span class="chip active" data-cat="全部">全部 <span class="cnt">12</span></span>
+          <span class="chip" data-cat="模型">模型 <span class="cnt">3</span></span>
+          <span class="chip" data-cat="产品">产品 <span class="cnt">3</span></span>
+          <span class="chip" data-cat="融资">融资 <span class="cnt">2</span></span>
+          <span class="chip" data-cat="政策">政策 <span class="cnt">1</span></span>
+          <span class="chip" data-cat="研究">研究 <span class="cnt">1</span></span>
+          <span class="chip" data-cat="开源">开源 <span class="cnt">1</span></span>
+          <span class="chip" data-cat="人物">人物 <span class="cnt">1</span></span>
+        </div>
+
+        <div class="news" id="news"></div>
+      </main>
+
+      <!-- 侧边栏 -->
+      <aside class="side">
+        <div class="panel">
+          <h4>今日热搜 <span class="more">Top 5</span></h4>
+          <ul class="trend-list">
+            <li><span class="rank">1</span><span class="word">GPT-5 多模态推理</span><span class="cnt">128</span></li>
+            <li><span class="rank">2</span><span class="word">具身智能量产</span><span class="cnt">96</span></li>
+            <li><span class="rank">3</span><span class="word">欧盟 AI Act</span><span class="cnt">72</span></li>
+            <li><span class="rank">4</span><span class="word">Llama 4 开源</span><span class="cnt">58</span></li>
+            <li><span class="rank">5</span><span class="word">Test-time Scaling</span><span class="cnt">41</span></li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h4>分类分布</h4>
+          <div class="bars">
+            <div class="bar-row">
+              <div class="lab"><span>模型发布</span><b>32%</b></div>
+              <div class="bar-track"><div class="bar-fill" style="width:32%"></div></div>
+            </div>
+            <div class="bar-row">
+              <div class="lab"><span>产品更新</span><b>24%</b></div>
+              <div class="bar-track"><div class="bar-fill blue" style="width:24%"></div></div>
+            </div>
+            <div class="bar-row">
+              <div class="lab"><span>融资并购</span><b>18%</b></div>
+              <div class="bar-track"><div class="bar-fill green" style="width:18%"></div></div>
+            </div>
+            <div class="bar-row">
+              <div class="lab"><span>政策合规</span><b>14%</b></div>
+              <div class="bar-track"><div class="bar-fill amber" style="width:14%"></div></div>
+            </div>
+            <div class="bar-row">
+              <div class="lab"><span>学术研究</span><b>12%</b></div>
+              <div class="bar-track"><div class="bar-fill pink" style="width:12%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h4>今日观点</h4>
+          <p class="quote">大模型的下半场不再是参数竞赛，而是推理质量、上下文长度与多模态融合的综合较量。</p>
+          <p class="quote-author">— <b>Sam Altman</b>，OpenAI CEO</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      AI 行业日报 · 数据为示例展示 · 每日 09:00 自动整理生成<br>
+      <span class="credit">© 2026 AI Daily Intelligence · Edited by WorkBuddy</span>
+    </footer>
+  </div>
+
+  <!-- 对比抽屉 -->
+  <div class="compare-drawer" id="compareDrawer">
+    <div class="compare-drawer-inner">
+      <span class="title">模型对比 (≤4)</span>
+      <div class="compare-list" id="compareList"></div>
+      <div class="compare-actions">
+        <button class="btn-ghost" id="compareClear">清空</button>
+        <button class="btn-primary" id="compareGo" disabled>开始对比</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对比模态框 -->
+  <div class="modal-mask" id="compareModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>模型规格对比</h3>
+        <button class="close" id="compareClose">×</button>
+      </div>
+      <div class="modal-body" id="compareBody"></div>
+    </div>
+  </div>
+
+  <!-- 收藏夹模态框 -->
+  <div class="modal-mask" id="favModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>★ 我的收藏</h3>
+        <button class="close" id="favClose">×</button>
+      </div>
+      <div class="modal-body" id="favBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="backToTop" title="回到顶部" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+<script>
+  /* ---------- 今日日期 ---------- */
+  (function() {
+    var d = new Date();
+    var s = d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+    document.getElementById('today').textContent = s;
+  })();
+
+  /* ---------- 示例数据 ---------- */
+  var NEWS = [
+    {
+      id: 1, cat: '模型', source: 'OpenAI 官方', time: '08:15', heat: 9.8,
+      title: 'OpenAI 发布 GPT-5 预览版，多模态推理能力大幅提升',
+      desc: '新版本在数学、代码、长文档理解任务上较 GPT-4 提升 30% 以上，原生支持图像与音频输入输出。',
+      kws: ['GPT-5', '多模态', '推理'],
+      type: 'model',
+      model: 'GPT-5',
+      specs: { 参数: '1.8T', 上下文: '256K', 价格: '$8/M', 评分: '9.2' },
+      pricePerM: 8,  // 美元/百万 tokens
+      abilities: [
+        { name: '数学推理', val: 96 },
+        { name: '代码生成', val: 94 },
+        { name: '中文理解', val: 91 },
+        { name: '多模态', val: 98 }
+      ]
+    },
+    {
+      id: 2, cat: '融资', source: '36氪', time: '09:02', heat: 9.2,
+      title: '智元机器人完成 B 轮融资 5 亿美元，估值突破 200 亿',
+      desc: '本轮由腾讯领投，资金将主要用于具身智能基座模型研发与人形机器人量产线建设。',
+      kws: ['智元机器人', '具身智能', '人形机器人'],
+      type: 'text',
+      detail: '智元机器人成立于 2023 年 2 月，由前华为天才少年稚晖君创立。本轮投后估值达 200 亿元人民币，创下国内具身智能赛道单轮最高融资纪录。公司计划于 2026 年 Q1 启动人形机器人远征 A2 的量产交付，年产能目标 1 万台。腾讯、红杉、高瓴等老股东持续加注，新引入多家国资产业基金。'
+    },
+    {
+      id: 3, cat: '产品', source: 'Anthropic 官方', time: '09:40', heat: 8.9,
+      title: 'Claude 推出 Computer Use 正式版，可自主操作浏览器',
+      desc: '用户用自然语言描述任务，Claude 可完成跨网页操作、表单填写与文件处理，企业版已开放接入。',
+      kws: ['Claude', 'Computer Use', 'Agent'],
+      type: 'product',
+      product: 'Claude Computer Use',
+      features: ['跨网页任务编排', '表单自动填写', '文件下载与处理', '屏幕截图理解', '多步推理规划', '企业 API 接入'],
+      price: '企业版 $30/月起',
+      pricePerM: 3,
+      rating: 4.6, voters: 1280
+    },
+    {
+      id: 4, cat: '开源', source: 'Hugging Face', time: '10:20', heat: 9.5,
+      title: 'Llama 4 系列开源，405B 模型免费可商用',
+      desc: 'Meta 发布 Llama 4，包含 405B / 130B / 70B 三个版本，支持 1M 上下文，多项基准超越闭源模型。',
+      kws: ['Llama 4', '开源', '长上下文'],
+      type: 'model',
+      model: 'Llama 4 405B',
+      specs: { 参数: '405B', 上下文: '1M', 价格: '免费', 评分: '9.0' },
+      pricePerM: 0,
+      abilities: [
+        { name: '数学推理', val: 92 },
+        { name: '代码生成', val: 95 },
+        { name: '中文理解', val: 88 },
+        { name: '长文档', val: 97 }
+      ]
+    },
+    {
+      id: 5, cat: '研究', source: 'arXiv', time: '11:05', heat: 8.1,
+      title: 'DeepMind 论文：Test-time Scaling 在数学推理上的系统性研究',
+      desc: '研究表明，在推理阶段增加计算量可让 70B 模型超越 GPT-4 在 MATH 基准上的表现。',
+      kws: ['Test-time Scaling', '推理', 'DeepMind'],
+      type: 'text',
+      detail: '论文标题《Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters》。研究团队系统性地分析了在推理阶段增加计算（如 Best-of-N 采样、自我修正、搜索）对模型表现的影响。核心结论：在 MATH 基准上，70B 模型配合优化的 test-time compute 可超越 GPT-4，且计算成本仅为后者的 1/10。这为「小模型 + 推理时计算」路线提供了强有力的理论支撑。'
+    },
+    {
+      id: 6, cat: '政策', source: '新华社', time: '12:30', heat: 8.4,
+      title: '欧盟 AI Act 全面生效，高风险系统须完成合规评估',
+      desc: '法案对生物识别、关键基础设施、教育等八大类高风险 AI 系统提出透明度、可解释性与人类监督要求。',
+      kws: ['AI Act', '欧盟', '合规'],
+      type: 'text',
+      detail: '《人工智能法案》（AI Act）于 2024 年 8 月 1 日生效，今日进入全面执行阶段。法案按风险等级将 AI 系统分为四类：不可接受风险（禁止）、高风险（严格监管）、有限风险（透明度义务）、最小风险（无义务）。违规企业最高面临全球营业额 7% 的罚款。欧盟同时设立 AI 办公室（AI Office）负责执法，预计将影响 OpenAI、Google、Meta 等全球主要 AI 公司的在欧业务。'
+    },
+    {
+      id: 7, cat: '模型', source: '智谱 AI', time: '13:15', heat: 8.7,
+      title: '智谱 GLM-5 发布，单次可处理 1000 万 tokens',
+      desc: 'GLM-5 在长文档摘要、代码仓库分析、企业知识库问答场景表现突出，API 价格下调 40%。',
+      kws: ['GLM-5', '长上下文', '国产模型'],
+      type: 'model',
+      model: 'GLM-5',
+      specs: { 参数: '355B', 上下文: '10M', 价格: '¥4/M', 评分: '8.8' },
+      pricePerM: 0.55,  // ¥4/M ≈ $0.55
+      abilities: [
+        { name: '数学推理', val: 89 },
+        { name: '代码生成', val: 91 },
+        { name: '中文理解', val: 96 },
+        { name: '长文档', val: 99 }
+      ]
+    },
+    {
+      id: 8, cat: '产品', source: 'Google 官方', time: '14:00', heat: 8.0,
+      title: 'Gemini 3 集成至 Workspace，办公文档可一键生成',
+      desc: '用户在 Docs、Sheets 中通过自然语言指令即可生成完整文档与数据分析图表。',
+      kws: ['Gemini 3', 'Workspace', '办公'],
+      type: 'product',
+      product: 'Gemini 3 for Workspace',
+      features: ['Docs 智能写作', 'Sheets 数据分析', 'Slides 一键生成', 'Gmail 智能回复', '跨应用上下文', '团队协作'],
+      price: 'Workspace 企业版 $30/用户/月',
+      pricePerM: 7,
+      rating: 4.3, voters: 980
+    },
+    {
+      id: 9, cat: '融资', source: 'TechCrunch', time: '15:30', heat: 7.9,
+      title: 'Perplexity 完成 9 亿美元 C 轮融资，估值达 150 亿',
+      desc: '本轮由 IVP 领投，公司将加大 answer engine 与浏览器 Comet 的研发投入。',
+      kws: ['Perplexity', 'AI 搜索', '估值'],
+      type: 'text',
+      detail: 'Perplexity 成立于 2022 年，主打 AI 驱动的对话式搜索引擎。本轮投后估值 150 亿美元，较 B 轮翻倍。公司月活用户已达 1500 万，年化收入 1 亿美元。融资将主要用于三方面：1）Comet 浏览器的研发与发布；2）电商与购物搜索商业化；3）企业版 Pro Search 的市场拓展。Jeff Bezos、Nvidia 等老股东继续加持。'
+    },
+    {
+      id: 10, cat: '人物', source: 'MIT Tech Review', time: '16:10', heat: 7.6,
+      title: '对话李飞飞：空间智能是 AI 的下一座高峰',
+      desc: 'World Labs 创始人李飞飞首次系统阐述空间智能的三层架构与商业化路径。',
+      kws: ['李飞飞', '空间智能', 'World Labs'],
+      type: 'text',
+      detail: '李飞飞在 MIT Tech Review 专访中首次系统阐述了 World Labs 的技术路线。她将空间智能分为三层：1）感知层——3D 场景理解与重建；2）推理层——空间关系与物理常识；3）生成层——高质量 3D 内容生成。World Labs 已完成 A 轮融资 2.3 亿美元，估值 10 亿美元，投资方包括 a16z、NEA 等。产品方向面向游戏、影视、机器人训练三大场景。'
+    },
+    {
+      id: 11, cat: '模型', source: 'Mistral AI', time: '17:00', heat: 8.3,
+      title: 'Mistral Large 2 发布，欧洲首个万亿参数级模型',
+      desc: '法国 AI 公司 Mistral 发布旗舰模型，主打欧洲语言能力与数据主权，123B 稠密架构。',
+      kws: ['Mistral', '欧洲模型', '数据主权'],
+      type: 'model',
+      model: 'Mistral Large 2',
+      specs: { 参数: '123B', 上下文: '128K', 价格: '€3/M', 评分: '8.5' },
+      pricePerM: 3.3,
+      abilities: [
+        { name: '数学推理', val: 88 },
+        { name: '代码生成', val: 90 },
+        { name: '中文理解', val: 78 },
+        { name: '多语言', val: 96 }
+      ]
+    },
+    {
+      id: 12, cat: '产品', source: '字节跳动', time: '17:45', heat: 7.4,
+      title: '豆包 1.5 发布，集成至飞书与抖音，C 端免费开放',
+      desc: '新版豆包支持实时语音对话、视频理解与图像生成，飞书与抖音用户均可直接使用。',
+      kws: ['豆包', '字节跳动', '多模态'],
+      type: 'product',
+      product: '豆包 1.5',
+      features: ['实时语音对话', '视频内容理解', '图像生成', '飞书集成', '抖音集成', '免费使用'],
+      price: 'C 端免费 / 企业版 ¥99/月',
+      pricePerM: 0.14,
+      rating: 4.1, voters: 2340
+    }
+  ];
+
+  /* ---------- 状态 ---------- */
+  var state = {
+    cat: '全部',
+    sort: 'time',
+    view: 'list',
+    keyword: '',
+    read: {},
+    fav: {},         // 收藏
+    compare: [],     // 对比 id 列表
+    compareMode: false,
+    ratings: {}      // 产品评分 {id: stars}
+  };
+
+  /* 初始化评分 */
+  NEWS.forEach(function (n) {
+    if (n.type === 'product' && n.rating) state.ratings[n.id] = Math.round(n.rating);
+  });
+
+  /* ---------- 渲染：获取过滤后的列表 ---------- */
+  function getFiltered() {
+    var list = NEWS.slice();
+    if (state.cat !== '全部') list = list.filter(function (n) { return n.cat === state.cat; });
+    if (state.keyword) {
+      var kw = state.keyword.toLowerCase();
+      list = list.filter(function (n) {
+        return (n.title + n.desc + n.source + n.kws.join(',')).toLowerCase().indexOf(kw) > -1;
+      });
+    }
+    if (state.sort === 'heat') list.sort(function (a, b) { return b.heat - a.heat; });
+    else list.sort(function (a, b) { return b.time.localeCompare(a.time); });
+    return list;
+  }
+
+  /* ---------- 渲染：模型详情 ---------- */
+  function renderModelDetail(n) {
+    var spec = '<div class="detail"><div class="detail-inner">' +
+      '<h5>模型规格</h5>' +
+      '<div class="spec-table">' +
+        '<div class="spec-cell"><div class="k">参数量</div><div class="v">' + n.specs.参数 + '</div></div>' +
+        '<div class="spec-cell"><div class="k">上下文</div><div class="v">' + n.specs.上下文 + '</div></div>' +
+        '<div class="spec-cell"><div class="k">价格</div><div class="v">' + n.specs.价格 + '</div></div>' +
+        '<div class="spec-cell"><div class="k">综合评分</div><div class="v">' + n.specs.评分 + '</div></div>' +
+      '</div>' +
+      '<h5 style="margin-top:18px">能力评估</h5>' +
+      '<div class="ability-section">' +
+        '<div class="ability">';
+    n.abilities.forEach(function (a) {
+      spec += '<div class="ability-row">' +
+        '<span class="name">' + a.name + '</span>' +
+        '<div class="ability-track"><div class="ability-fill" style="--w:' + a.val + '%"></div></div>' +
+        '<span class="ability-val">' + a.val + '</span>' +
+      '</div>';
+    });
+    spec += '</div>' + renderRadar(n) + '</div>';
+
+    // API 成本计算器
+    spec += '<div class="calc">' +
+      '<h6>API 成本估算器</h6>' +
+      '<div class="calc-row">' +
+        '<span>每日 tokens</span>' +
+        '<input type="range" min="0" max="100" value="10" data-price="' + n.pricePerM + '" class="calc-range">' +
+        '<span class="v"><span class="calc-tokens">10M</span></span>' +
+      '</div>' +
+      '<div class="calc-result">预计日成本：<b class="calc-cost">$' + (n.pricePerM * 10).toFixed(2) + '</b> · 月成本约 <b>$' + (n.pricePerM * 10 * 30).toFixed(0) + '</b></div>' +
+    '</div>';
+
+    spec += '</div></div>';
+    return spec;
+  }
+
+  /* ---------- 渲染：雷达图 SVG ---------- */
+  function renderRadar(n) {
+    var cx = 90, cy = 90, r = 65;
+    var axes = n.abilities;
+    var n_axes = axes.length;
+    var svg = '<svg class="radar" viewBox="0 0 180 180">';
+
+    // 背景网格（4层）
+    for (var layer = 1; layer <= 4; layer++) {
+      var lr = r * layer / 4;
+      var pts = [];
+      for (var i = 0; i < n_axes; i++) {
+        var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+        pts.push((cx + lr * Math.cos(ang)).toFixed(1) + ',' + (cy + lr * Math.sin(ang)).toFixed(1));
+      }
+      svg += '<polygon points="' + pts.join(' ') + '" fill="none" stroke="#e3ddca" stroke-width="0.8"/>';
+    }
+
+    // 轴线
+    for (var i = 0; i < n_axes; i++) {
+      var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+      svg += '<line x1="' + cx + '" y1="' + cy + '" x2="' + (cx + r * Math.cos(ang)).toFixed(1) + '" y2="' + (cy + r * Math.sin(ang)).toFixed(1) + '" stroke="#e3ddca" stroke-width="0.8"/>';
+    }
+
+    // 数据多边形
+    var dataPts = [];
+    for (var i = 0; i < n_axes; i++) {
+      var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+      var val = axes[i].val / 100;
+      dataPts.push((cx + r * val * Math.cos(ang)).toFixed(1) + ',' + (cy + r * val * Math.sin(ang)).toFixed(1));
+    }
+    svg += '<polygon points="' + dataPts.join(' ') + '" fill="rgba(184,92,43,0.25)" stroke="#b85c2b" stroke-width="1.5"/>';
+
+    // 数据点
+    for (var i = 0; i < n_axes; i++) {
+      var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+      var val = axes[i].val / 100;
+      svg += '<circle cx="' + (cx + r * val * Math.cos(ang)).toFixed(1) + '" cy="' + (cy + r * val * Math.sin(ang)).toFixed(1) + '" r="2.5" fill="#b85c2b"/>';
+    }
+
+    // 标签
+    for (var i = 0; i < n_axes; i++) {
+      var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+      var lx = cx + (r + 12) * Math.cos(ang);
+      var ly = cy + (r + 12) * Math.sin(ang);
+      svg += '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" font-size="9" fill="#5c5648" text-anchor="middle" alignment-baseline="middle">' + axes[i].name + '</text>';
+    }
+
+    svg += '</svg>';
+    return svg;
+  }
+
+  /* ---------- 渲染：产品详情 ---------- */
+  function renderProductDetail(n) {
+    var feat = n.features.map(function (f) { return '<li>' + f + '</li>'; }).join('');
+    var stars = renderStars(n.id);
+
+    return '<div class="detail"><div class="detail-inner">' +
+      '<div class="tabs" data-id="' + n.id + '">' +
+        '<button class="active" data-tab="func">功能</button>' +
+        '<button data-tab="price">价格</button>' +
+        '<button data-tab="rate">评分</button>' +
+        '<button data-tab="desc">简介</button>' +
+      '</div>' +
+      '<div class="tab-pane active" data-pane="func"><ul class="features">' + feat + '</ul></div>' +
+      '<div class="tab-pane" data-pane="price">' +
+        '<div class="price-box">' +
+          '<div class="p">' + n.price + '</div>' +
+          '<div class="note">含 API 调用、企业 SLA 保障与专属技术支持。可按需扩展 GPU 配额与私有化部署。</div>' +
+        '</div>' +
+        '<div class="calc">' +
+          '<h6>API 成本估算器</h6>' +
+          '<div class="calc-row">' +
+            '<span>每日 tokens</span>' +
+            '<input type="range" min="0" max="100" value="10" data-price="' + n.pricePerM + '" class="calc-range">' +
+            '<span class="v"><span class="calc-tokens">10M</span></span>' +
+          '</div>' +
+          '<div class="calc-result">预计日成本：<b class="calc-cost">$' + (n.pricePerM * 10).toFixed(2) + '</b> · 月成本约 <b>$' + (n.pricePerM * 10 * 30).toFixed(0) + '</b></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="tab-pane" data-pane="rate">' +
+        '<div style="text-align:center;padding:10px">' +
+          '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:8px">点击为该产品打分</div>' +
+          stars +
+          '<div class="rating" style="margin-top:10px">' +
+            '<span class="score">' + (state.ratings[n.id] || 0).toFixed(1) + '</span> / 5.0 · ' +
+            '<span class="voters">' + (n.voters || 0).toLocaleString() + ' 人评分</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="tab-pane" data-pane="desc"><p style="font-size:13px;color:var(--ink-soft);line-height:1.7">' + n.desc + '</p></div>' +
+    '</div></div>';
+  }
+
+  /* ---------- 渲染：星星评分 ---------- */
+  function renderStars(id) {
+    var cur = state.ratings[id] || 0;
+    var html = '<div class="rating"><div class="stars" data-id="' + id + '">';
+    for (var i = 1; i <= 5; i++) {
+      html += '<span class="star' + (i <= cur ? ' on' : '') + '" data-val="' + i + '">★</span>';
+    }
+    html += '</div></div>';
+    return html;
+  }
+
+  /* ---------- 渲染：纯文本详情 ---------- */
+  function renderTextDetail(n) {
+    return '<div class="detail"><div class="detail-inner"><h5>详情</h5>' + n.detail + '</div></div>';
+  }
+
+  /* ---------- 渲染：单张卡片 ---------- */
+  function renderCard(n) {
+    var detail = '';
+    if (n.type === 'model') detail = renderModelDetail(n);
+    else if (n.type === 'product') detail = renderProductDetail(n);
+    else detail = renderTextDetail(n);
+
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.id = n.id;
+    card.dataset.type = n.type;
+    if (state.read[n.id]) card.classList.add('read');
+
+    var actionsHtml = '';
+    if (n.type === 'model') {
+      actionsHtml += '<button class="icon-cmp" title="加入对比">⇄</button>';
+    }
+    actionsHtml += '<button class="icon-fav' + (state.fav[n.id] ? ' active' : '') + '" title="收藏">★</button>';
+
+    card.innerHTML =
+      '<div class="compare-check' + (state.compare.indexOf(n.id) > -1 ? ' checked' : '') + '"></div>' +
+      '<div class="card-head">' +
+        '<span class="tag ' + n.cat + '">' + n.cat + '</span>' +
+        '<span class="source">' + n.source + '</span>' +
+        '<span class="time">' + n.time + '</span>' +
+      '</div>' +
+      '<h3>' + n.title + '</h3>' +
+      '<p>' + n.desc + '</p>' +
+      detail +
+      '<div class="card-foot">' +
+        n.kws.map(function (k) { return '<span class="kw">#' + k + '</span>'; }).join('') +
+        '<span class="heat">🔥 ' + n.heat.toFixed(1) + '</span>' +
+        '<span class="expand-hint"></span>' +
+        '<div class="card-actions">' + actionsHtml + '</div>' +
+      '</div>';
+
+    return card;
+  }
+
+  function render() {
+    var box = document.getElementById('news');
+    box.innerHTML = '';
+    box.className = 'news ' + state.view;
+    var list = getFiltered();
+    if (list.length === 0) {
+      box.innerHTML = '<div style="text-align:center;padding:40px;color:var(--ink-faint);font-style:italic">未找到匹配的资讯</div>';
+      return;
+    }
+    list.forEach(function (n) { box.appendChild(renderCard(n)); });
+    // 重新触发能力条动画
+    setTimeout(function () {
+      document.querySelectorAll('.card.expanded .ability-fill').forEach(function (el) {});
+    }, 0);
+  }
+
+  /* ---------- 事件：卡片交互 ---------- */
+  document.getElementById('news').addEventListener('click', function (e) {
+    // 对比模式下的勾选
+    if (state.compareMode) {
+      var check = e.target.closest('.compare-check');
+      if (check) {
+        var card = check.closest('.card');
+        var id = parseInt(card.dataset.id, 10);
+        toggleCompare(id);
+        return;
+      }
+      // 对比模式下不展开卡片
+      var card = e.target.closest('.card');
+      if (card && !e.target.closest('.card-actions')) {
+        var id = parseInt(card.dataset.id, 10);
+        toggleCompare(id);
+        return;
+      }
+    }
+
+    // Tab 切换
+    var tabBtn = e.target.closest('.tabs button');
+    if (tabBtn) {
+      e.stopPropagation();
+      var tabsBox = tabBtn.parentElement;
+      var cardEl = tabsBox.closest('.card');
+      tabsBox.querySelectorAll('button').forEach(function (b) { b.classList.remove('active'); });
+      tabBtn.classList.add('active');
+      var tab = tabBtn.dataset.tab;
+      cardEl.querySelectorAll('.tab-pane').forEach(function (p) {
+        p.classList.toggle('active', p.dataset.pane === tab);
+      });
+      return;
+    }
+
+    // 星级评分
+    var star = e.target.closest('.star');
+    if (star) {
+      e.stopPropagation();
+      var starsBox = star.parentElement;
+      var pid = parseInt(starsBox.dataset.id, 10);
+      var val = parseInt(star.dataset.val, 10);
+      state.ratings[pid] = val;
+      starsBox.querySelectorAll('.star').forEach(function (s, i) {
+        s.classList.toggle('on', i < val);
+      });
+      // 更新分数显示
+      var ratingBox = starsBox.closest('.tab-pane').querySelector('.score');
+      if (ratingBox) ratingBox.textContent = val.toFixed(1);
+      showToast('已打 ' + val + ' 星');
+      return;
+    }
+
+    // 关键词点击 - 加入搜索
+    var kw = e.target.closest('.kw');
+    if (kw) {
+      e.stopPropagation();
+      var word = kw.textContent.replace(/^#/, '');
+      document.getElementById('searchInput').value = word;
+      state.keyword = word;
+      render();
+      return;
+    }
+
+    // 卡片动作按钮
+    var actBtn = e.target.closest('.card-actions button');
+    if (actBtn) {
+      e.stopPropagation();
+      var cardEl = actBtn.closest('.card');
+      var cid = parseInt(cardEl.dataset.id, 10);
+      var item = NEWS.find(function (x) { return x.id === cid; });
+
+      if (actBtn.classList.contains('icon-fav')) {
+        state.fav[cid] = !state.fav[cid];
+        actBtn.classList.toggle('active', state.fav[cid]);
+        updateFavCnt();
+        showToast(state.fav[cid] ? '已收藏「' + item.title.slice(0, 12) + '...」' : '已取消收藏');
+      } else if (actBtn.classList.contains('icon-cmp')) {
+        toggleCompare(cid);
+      }
+      return;
+    }
+
+    // 展开/收起卡片
+    var card = e.target.closest('.card');
+    if (!card) return;
+    var hint = e.target.closest('.expand-hint');
+    card.classList.toggle('expanded');
+    var id = parseInt(card.dataset.id, 10);
+    if (card.classList.contains('expanded') && !state.read[id]) {
+      state.read[id] = true;
+      card.classList.add('read');
+    }
+  });
+
+  /* ---------- 对比功能 ---------- */
+  function toggleCompare(id) {
+    var idx = state.compare.indexOf(id);
+    if (idx > -1) {
+      state.compare.splice(idx, 1);
+    } else {
+      if (state.compare.length >= 4) {
+        showToast('最多对比 4 个模型');
+        return;
+      }
+      state.compare.push(id);
+    }
+    updateCompareUI();
+    // 更新卡片勾选状态
+    document.querySelectorAll('.card[data-type="model"]').forEach(function (card) {
+      var cid = parseInt(card.dataset.id, 10);
+      var check = card.querySelector('.compare-check');
+      if (check) check.classList.toggle('checked', state.compare.indexOf(cid) > -1);
+    });
+  }
+
+  function updateCompareUI() {
+    var badge = document.getElementById('compareBadge');
+    badge.textContent = state.compare.length;
+    var drawer = document.getElementById('compareDrawer');
+    var btn = document.getElementById('compareGo');
+
+    if (state.compare.length > 0) {
+      drawer.classList.add('show');
+      btn.disabled = state.compare.length < 2;
+    } else {
+      drawer.classList.remove('show');
+      btn.disabled = true;
+    }
+
+    var listEl = document.getElementById('compareList');
+    listEl.innerHTML = '';
+    state.compare.forEach(function (id) {
+      var n = NEWS.find(function (x) { return x.id === id; });
+      if (!n) return;
+      var item = document.createElement('span');
+      item.className = 'compare-item';
+      item.innerHTML = n.model + '<span class="x" data-id="' + id + '">×</span>';
+      listEl.appendChild(item);
+    });
+  }
+
+  // 对比抽屉事件
+  document.getElementById('compareList').addEventListener('click', function (e) {
+    var x = e.target.closest('.x');
+    if (!x) return;
+    toggleCompare(parseInt(x.dataset.id, 10));
+  });
+
+  document.getElementById('compareClear').addEventListener('click', function () {
+    state.compare = [];
+    updateCompareUI();
+    document.querySelectorAll('.compare-check').forEach(function (c) { c.classList.remove('checked'); });
+  });
+
+  document.getElementById('compareGo').addEventListener('click', function () {
+    openCompareModal();
+  });
+
+  document.getElementById('compareClose').addEventListener('click', function () {
+    document.getElementById('compareModal').classList.remove('show');
+  });
+
+  document.getElementById('compareModal').addEventListener('click', function (e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+
+  // 对比模式开关
+  document.getElementById('compareToggle').addEventListener('click', function () {
+    state.compareMode = !state.compareMode;
+    this.classList.toggle('active', state.compareMode);
+    document.body.classList.toggle('compare-on', state.compareMode);
+    if (!state.compareMode) {
+      // 退出对比模式但保留已选
+      if (state.compare.length === 0) {
+        document.getElementById('compareDrawer').classList.remove('show');
+      }
+    } else {
+      showToast('已进入对比模式，点击模型卡片加入对比');
+    }
+  });
+
+  /* ---------- 对比模态框内容 ---------- */
+  function openCompareModal() {
+    var items = state.compare.map(function (id) { return NEWS.find(function (x) { return x.id === id; }); }).filter(Boolean);
+    if (items.length < 2) return;
+
+    var body = document.getElementById('compareBody');
+    var cats = ['参数', '上下文', '价格', '综合评分', '数学推理', '代码生成', '中文理解', '长文档/多语言'];
+
+    // 找出每行的最佳值
+    function getVal(n, cat) {
+      if (cat === '参数') return n.specs.参数;
+      if (cat === '上下文') return n.specs.上下文;
+      if (cat === '价格') return n.specs.价格;
+      if (cat === '综合评分') return n.specs.评分;
+      if (n.abilities) {
+        for (var i = 0; i < n.abilities.length; i++) {
+          if (n.abilities[i].name === cat || (cat === '长文档/多语言' && (n.abilities[i].name === '长文档' || n.abilities[i].name === '多语言'))) {
+            return n.abilities[i].val;
+          }
+        }
+      }
+      return '—';
+    }
+
+    function isBest(val, cat, allVals) {
+      if (typeof val !== 'number') {
+        // 价格为字符串，免费为最佳
+        if (cat === '价格') return val === '免费';
+        return false;
+      }
+      var nums = allVals.filter(function (v) { return typeof v === 'number'; });
+      if (nums.length === 0) return false;
+      var max = Math.max.apply(null, nums);
+      return val === max;
+    }
+
+    var html = '<table class="cmp-table"><thead><tr><th>规格</th>';
+    items.forEach(function (n) {
+      html += '<th><div class="name">' + n.model + ' <span class="tag ' + n.cat + '">' + n.cat + '</span></div></th>';
+    });
+    html += '</tr></thead><tbody>';
+
+    cats.forEach(function (cat) {
+      html += '<tr><th>' + cat + '</th>';
+      var vals = items.map(function (n) { return getVal(n, cat); });
+      items.forEach(function (n, i) {
+        var v = vals[i];
+        var best = isBest(v, cat, vals);
+        html += '<td class="val' + (best ? ' best' : '') + '">' + v;
+        if (typeof v === 'number' && v > 0) {
+          html += '<br><div class="cmp-bar" style="width:' + v + '%"></div>';
+        }
+        html += '</td>';
+      });
+      html += '</tr>';
+    });
+
+    // 综合对比 - 雷达图叠加
+    html += '<tr><th>能力叠加图</th><td colspan="' + items.length + '" style="padding:20px">';
+    html += '<svg viewBox="0 0 220 220" style="width:100%;max-width:400px;display:block;margin:0 auto">';
+    var cx = 110, cy = 110, r = 75;
+    // 假设所有模型使用相同的轴名
+    var axes = items[0].abilities;
+    var n_axes = axes.length;
+    // 背景网格
+    for (var layer = 1; layer <= 4; layer++) {
+      var lr = r * layer / 4;
+      var pts = [];
+      for (var i = 0; i < n_axes; i++) {
+        var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+        pts.push((cx + lr * Math.cos(ang)).toFixed(1) + ',' + (cy + lr * Math.sin(ang)).toFixed(1));
+      }
+      html += '<polygon points="' + pts.join(' ') + '" fill="none" stroke="#e3ddca" stroke-width="0.8"/>';
+    }
+    // 轴线
+    for (var i = 0; i < n_axes; i++) {
+      var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+      html += '<line x1="' + cx + '" y1="' + cy + '" x2="' + (cx + r * Math.cos(ang)).toFixed(1) + '" y2="' + (cy + r * Math.sin(ang)).toFixed(1) + '" stroke="#e3ddca" stroke-width="0.8"/>';
+    }
+    // 每个模型的数据
+    var colors = ['#b85c2b', '#345b7a', '#4a6b3e', '#a8456b'];
+    items.forEach(function (n, idx) {
+      if (!n.abilities) return;
+      var dpts = [];
+      n.abilities.forEach(function (a, i) {
+        var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+        var val = a.val / 100;
+        dpts.push((cx + r * val * Math.cos(ang)).toFixed(1) + ',' + (cy + r * val * Math.sin(ang)).toFixed(1));
+      });
+      var c = colors[idx % colors.length];
+      html += '<polygon points="' + dpts.join(' ') + '" fill="' + c + '22" stroke="' + c + '" stroke-width="1.8"/>';
+    });
+    // 标签
+    for (var i = 0; i < n_axes; i++) {
+      var ang = -Math.PI / 2 + i * 2 * Math.PI / n_axes;
+      var lx = cx + (r + 14) * Math.cos(ang);
+      var ly = cy + (r + 14) * Math.sin(ang);
+      html += '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" font-size="10" fill="#5c5648" text-anchor="middle" alignment-baseline="middle">' + axes[i].name + '</text>';
+    }
+    html += '</svg>';
+    // 图例
+    html += '<div style="display:flex;gap:14px;justify-content:center;margin-top:10px;flex-wrap:wrap">';
+    items.forEach(function (n, idx) {
+      var c = colors[idx % colors.length];
+      html += '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft)"><span style="width:10px;height:10px;background:' + c + ';border-radius:2px"></span>' + n.model + '</span>';
+    });
+    html += '</div>';
+    html += '</td></tr>';
+
+    html += '</tbody></table>';
+    body.innerHTML = html;
+    document.getElementById('compareModal').classList.add('show');
+  }
+
+  /* ---------- 收藏夹 ---------- */
+  function updateFavCnt() {
+    var cnt = Object.keys(state.fav).filter(function (k) { return state.fav[k]; }).length;
+    document.getElementById('favCnt').textContent = cnt;
+  }
+
+  document.getElementById('favBtn').addEventListener('click', function () {
+    openFavModal();
+  });
+
+  document.getElementById('favClose').addEventListener('click', function () {
+    document.getElementById('favModal').classList.remove('show');
+  });
+
+  document.getElementById('favModal').addEventListener('click', function (e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+
+  function openFavModal() {
+    var body = document.getElementById('favBody');
+    var favs = NEWS.filter(function (n) { return state.fav[n.id]; });
+    if (favs.length === 0) {
+      body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--ink-faint);font-style:italic">还没有收藏内容，悬停卡片点击 ★ 即可收藏</div>';
+    } else {
+      var html = '<div style="display:flex;flex-direction:column;gap:12px">';
+      favs.forEach(function (n) {
+        html += '<div style="display:flex;gap:12px;padding:14px;background:var(--paper);border-radius:6px;border-left:3px solid var(--accent)">' +
+          '<span class="tag ' + n.cat + '" style="flex-shrink:0;align-self:flex-start">' + n.cat + '</span>' +
+          '<div style="flex:1">' +
+            '<div style="font-weight:700;color:var(--ink);font-size:15px;margin-bottom:4px">' + n.title + '</div>' +
+            '<div style="font-size:13px;color:var(--ink-soft);line-height:1.6">' + n.desc + '</div>' +
+            '<div style="font-size:11px;color:var(--ink-faint);margin-top:6px">' + n.source + ' · ' + n.time + '</div>' +
+          '</div>' +
+          '<button class="remove-fav" data-id="' + n.id + '" style="background:none;border:1px solid var(--line);border-radius:50%;width:26px;height:26px;cursor:pointer;color:var(--ink-faint)">×</button>' +
+        '</div>';
+      });
+      html += '</div>';
+      body.innerHTML = html;
+    }
+    document.getElementById('favModal').classList.add('show');
+  }
+
+  document.getElementById('favBody').addEventListener('click', function (e) {
+    var btn = e.target.closest('.remove-fav');
+    if (!btn) return;
+    var id = parseInt(btn.dataset.id, 10);
+    state.fav[id] = false;
+    updateFavCnt();
+    // 同步卡片状态
+    var card = document.querySelector('.card[data-id="' + id + '"]');
+    if (card) card.querySelector('.icon-fav').classList.remove('active');
+    openFavModal();
+  });
+
+  /* ---------- 工具栏事件 ---------- */
+  document.getElementById('filters').addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    state.cat = chip.dataset.cat;
+    render();
+  });
+
+  document.getElementById('sortGroup').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    document.querySelectorAll('#sortGroup button').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    state.sort = btn.dataset.sort;
+    render();
+  });
+
+  document.getElementById('viewGroup').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    document.querySelectorAll('#viewGroup button').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    state.view = btn.dataset.view;
+    render();
+  });
+
+  var searchTimer;
+  document.getElementById('searchInput').addEventListener('input', function (e) {
+    clearTimeout(searchTimer);
+    var val = e.target.value;
+    searchTimer = setTimeout(function () {
+      state.keyword = val;
+      render();
+    }, 200);
+  });
+
+  /* ---------- API 成本计算器事件 ---------- */
+  document.getElementById('news').addEventListener('input', function (e) {
+    if (!e.target.classList.contains('calc-range')) return;
+    var val = parseInt(e.target.value, 10);
+    var price = parseFloat(e.target.dataset.price);
+    var card = e.target.closest('.card');
+    card.querySelector('.calc-tokens').textContent = val + 'M';
+    card.querySelector('.calc-cost').textContent = '$' + (price * val).toFixed(2);
+    // 更新月成本
+    var result = card.querySelector('.calc-result');
+    result.innerHTML = '预计日成本：<b class="calc-cost">$' + (price * val).toFixed(2) + '</b> · 月成本约 <b>$' + (price * val * 30).toFixed(0) + '</b>';
+  });
+
+  /* ---------- 提示 ---------- */
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function () { t.classList.remove('show'); }, 1600);
+  }
+
+  /* ---------- ESC 关闭模态框 ---------- */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-mask.show').forEach(function (m) { m.classList.remove('show'); });
+    }
+  });
+
+  /* ---------- 回到顶部按钮 ---------- */
+  (function() {
+    var btn = document.getElementById('backToTop');
+    var visible = false;
+    window.addEventListener('scroll', function () {
+      var shouldShow = window.scrollY > 300;
+      if (shouldShow !== visible) {
+        visible = shouldShow;
+        btn.classList.toggle('show', visible);
+      }
+    });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+
+  render();
+</script>
+</body>
+</html>
